@@ -13,16 +13,16 @@ public class Solution<Key extends Comparable<Key>, Value>  {
             this.key = key;
             this.val = val;
         }
-        public String toString() {
+  //       public String toString() {
 
-		return val + " has the key " + key;
+		// return val + " has the key " + key;
 
-		/*
-		 * return name + " has the key " + key + "\nLeft Child: " + leftChild +
-		 * "\nRight Child: " + rightChild + "\n";
-		 */
+		
+		//  * return name + " has the key " + key + "\nLeft Child: " + leftChild +
+		//  * "\nRight Child: " + rightChild + "\n";
+		 
 
-		}
+		// }
     }
 
     /**
@@ -94,7 +94,7 @@ public class Solution<Key extends Comparable<Key>, Value>  {
 	        }
         }
         if(curNode.key == key){
-        	System.out.println(key + " has a value " + curNode.val);
+        	System.out.println(curNode.val);
         }
         return curNode.val;
     }
@@ -191,9 +191,34 @@ public class Solution<Key extends Comparable<Key>, Value>  {
      * @throws NoSuchElementException if there is no such key
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
-    // public Key floor(Key key) {
-    	
-    // } 
+    public Key floor(Key key) {
+    	Node curNode = root;
+    	Node curNode1 = curNode.left;
+    	Node curNode2 = curNode.right;
+    	int cmp = key.compareTo(curNode.key);
+    	int cm = key.compareTo(curNode1.key);
+    	int c = key.compareTo(curNode2.key);
+    	while(curNode != null && cm < 0 && c > 0){
+    		if(cmp < 0){
+    			curNode = curNode.left;
+    		}
+    		else if(cmp > 0){
+    			curNode = curNode.right;
+    		}
+    	}//key and root equals
+    	if(cmp == 0){
+    		return curNode.key;
+    	}
+    	//key is greater than left and key is less than right;
+    	else if(key == null & cm > 0 && c < 0){
+    		return curNode1.key;
+    	}
+    	//Vice versa
+    	else if(key == null & cm < 0 && c > 0){
+    		return curNode1.key;
+    	}
+    	return curNode1.key;
+    } 
 
     // private Node floor(Node x, Key key) {
     //     return null;
@@ -268,21 +293,22 @@ public class Solution<Key extends Comparable<Key>, Value>  {
     exactly like the file output.txt shows it to be.*/
   
     public static void main(String[] args) { 
-        Solution <Integer,String> theTree = new Solution <Integer,String>();
-        theTree.put(49,"DORJI");
-		theTree.put(50,"YANGZOM");
-		theTree.put(41,"ANISHA");
-		theTree.put(47,"DEMA");
-		theTree.put(71,"PHURPA");
-		theTree.put(48,"TASHI");
-		theTree.put(75,"THINLEY");
-		theTree.put(42,"SANGYA");
-		theTree.inOrderTraverseTree(theTree.root);
-		theTree.get(49);
-		System.out.println("Min key : " + theTree.min());
-		System.out.println("Max key : " + theTree.max());
-		//System.out.println("Floor key : " + theTree.floor(43));
-		//assert(theTree.contains(49) == true);
-		System.out.println("Size : " + theTree.size());
+        Solution <String, Integer> theTree = new Solution <String, Integer>();
+        theTree.put("ABDUL",1);
+        theTree.get("ABDUL");
+        theTree.put("HRITHIK",2);
+        theTree.put("SAI",3);
+        theTree.put("SAMAL",6);
+        theTree.get("SAI");
+        theTree.put("TASHI",4);
+        System.out.println("Size : " + theTree.size());
+        System.out.println("Min key : " + theTree.min());
+        //System.out.println("Floor key : " + theTree.floor("HRITHIK"));
+        theTree.put("CHIMI",5);
+        theTree.put("SAMAL",4);
+        theTree.get("SAMAL");
+        theTree.put("NIMA",7);
+        System.out.println("Size : " + theTree.size());
+         theTree.put("SONAM",8);
     }
 }
