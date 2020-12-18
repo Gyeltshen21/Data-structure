@@ -157,60 +157,33 @@ public class BinaryTree {
 		return replacement;
 	}
 	public int floor(int key) {
-		Node curNode = root;
-		Node floor = null;
-		while(curNode != null) {
-			floor = curNode;
-			//Return floor if the key is equal
-			if(key == curNode.key) {
+		Node floor = root;
+		while(floor != null) {
+			if(floor.key == key) {
 				return floor.key;
 			}
-			//If the given key is less than curNode, shift to left
-			else if(key < curNode.key) {
-				curNode = curNode.leftChild;
-				//after reaching to left child, this decides
-				//weather the floor lies on left or right child of the left childRoot
-				if(key < curNode.key) {
-					//this holds left child of curNode
-					floor = curNode.leftChild;
-					//if key is still less then shift curNode to left of floor
-					if(key < floor.key) {
-						curNode = floor.leftChild;
-					}
-					//if key is greater than floor it returns floor
-					else {
-						return floor.key;
-					}
+			else if(key < floor.key) {
+				floor = floor.leftChild;
+				if(key > floor.leftChild.key && key < floor.rightChild.key){
+					return floor.key;
 				}
-				else {
-					floor = curNode.rightChild;
-					if(key < floor.key) {
-						return curNode.key;
-					}
-					else {
-						curNode = floor.rightChild;
-					}
+				else if(key > floor.key) {
+					floor = floor.rightChild;
+				}
+				else{
+					floor = floor.leftChild;
 				}
 			}
-			else {
-				curNode = curNode.rightChild;
-				if(key < curNode.key) {
-					floor = curNode.leftChild;
-					if(key < floor.key) {
-						curNode = floor.leftChild;
-					}
-					else {
-						return floor.key;
-					}
+			else{
+				floor = floor.rightChild;
+				if(key > floor.leftChild.key && key < floor.rightChild.key){
+					return floor.key;
 				}
-				else {
-					floor = curNode.rightChild;
-					if(key < floor.key) {
-						return curNode.key;
-					}
-					else {
-						curNode = floor.rightChild;
-					}
+				else if(key < floor.key) {
+					floor = floor.leftChild;
+				}
+				else{
+					floor = floor.rightChild;
 				}
 			}
 		}
@@ -219,12 +192,20 @@ public class BinaryTree {
 	public static void main(String[] args) {
 		BinaryTree theTree = new BinaryTree();
 		theTree.addNode(40, "FATHER");
-		theTree.addNode(50, "MOTHER");
-		theTree.addNode(45, "FIRST BROTHER");
-		theTree.addNode(60, "SECOND BROTHER");
-		theTree.addNode(30, "THIRD BROTHER");
-		theTree.addNode(35, "FORTH BROTHER");
+		theTree.addNode(60, "MOTHER");
+		theTree.addNode(55, "FIRST BROTHER");
+		theTree.addNode(50, "SECOND BROTHER");
+		theTree.addNode(45, "THIRD BROTHER");
+		theTree.addNode(75, "FORTH BROTHER");
+		theTree.addNode(70, "SISTER");
+		theTree.addNode(20, "SISTER");
 		theTree.addNode(25, "SISTER");
+		theTree.addNode(35, "SISTER");
+		theTree.addNode(30, "SISTER");
+		theTree.addNode(10, "SISTER");
+		theTree.addNode(15, "SISTER");
+		theTree.addNode(5, "SISTER");
+		theTree.addNode(80, "SISTER");
 		//theTree.removeNode(25);
 		System.out.println("Size :" +theTree.size());
 		System.out.println("Empty :" +theTree.isEmpty());
